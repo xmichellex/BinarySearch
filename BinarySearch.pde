@@ -1,5 +1,6 @@
 
-private Item[] store = {new Item(184,14),
+private Item[] store = {
+        new Item(184,14),
         new Item(196,60),
         new Item(206,31),
         new Item(2370,65),
@@ -23,17 +24,42 @@ private Item[] store = {new Item(184,14),
 public int linearSearch(int catNumToFind)
 {
     //complete this method
+    for(int i = 0; i < store.length; i++) 
+    { 
+        if(store[i].getCatNum() == catNumToFind) 
+          return store[i].getInventory();         
+    }
     return -1;
 }
 public int binarySearch(int catNumToFind)
 {
     //complete this method    
+    int low = 0; 
+    int high = store.length - 1; 
+    while(low <= high) 
+        { 
+            int guess = (low+high)/2; 
+            if(store[guess].getCatNum() == catNumToFind) 
+                return store[guess].getInventory(); 
+            else if(store[guess].getCatNum() > catNumToFind) 
+                high = guess - 1; 
+            else 
+                low = guess + 1;
+        }
     return -1;    
 }
 public int binarySearch(int catNumToFind,int nLow, int nHigh)
 {
     //complete this method    
-    return -1;           
+    if(nLow > nHigh) 
+    return -1;       
+    int guess = (nLow+nHigh)/2; 
+    if(store[guess].getCatNum() == catNumToFind) 
+        return store[guess].getInventory(); 
+    else if(store[guess].getCatNum() > catNumToFind) 
+        return binarySearch(catNumToFind, nLow, guess-1); 
+    else 
+        return binarySearch(catNumToFind, guess+1, nHigh);     
 }
 public void setup()
 {
